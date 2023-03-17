@@ -10,7 +10,6 @@ type Props = NativeStackScreenProps<RootParamList, 'Product'>;
 export const Product = ({route, navigation}: Props): JSX.Element => {
   const product = route.params;
   const handleOnPress = () => {
-    console.log('onclick');
     navigation.navigate('Home');
   };
 

@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     ...AppStyles.boxShadow,
+    marginBottom: 43,
   },
   textButton: {
     ...fontStyles.defaultFont,

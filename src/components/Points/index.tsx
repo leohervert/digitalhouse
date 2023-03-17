@@ -7,7 +7,7 @@ import {styles} from './styles';
 export const Points = () => {
   const {productState} = useContext(ProductContext);
   const {points} = productState;
-  console.log(points);
+
   return (
     <View style={styles.container}>
       <View style={styles.pointsContainer}>
