@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useEffect} from 'react';
 import {createContext} from 'react';
 import axios from 'axios';
 import {productReducer} from './productReducer';
@@ -10,7 +10,7 @@ export const ProductContext = createContext<ProductContextProps>(
 const INITIAL_STATE: ProductState = {
   products: [] as ProductModel[],
   displayed: [] as ProductModel[],
-  isRedemption: 'all',
+  isRedemption: null,
   points: 0,
   loading: false,
 };
@@ -18,54 +18,41 @@ const INITIAL_STATE: ProductState = {
 export const ProductProvider = ({children}: ProductProviderProps) => {
   const [productState, dispatch] = useReducer(productReducer, INITIAL_STATE);
 
+  useEffect(() => {
+    getProducts().then(values => {
+      sumProducts(values);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const sumProducts = (products: ProductModel[]) => {
+    const sum = products.reduce(
+      (ac, item) =>
+        ac + (!item.is_redemption ? item.points : -Math.abs(item.points)),
+      0,
+    );
+    dispatch({type: 'countPoints', payload: sum});
+  };
+
   const getProducts = async () => {
     toggleLoading();
     const response = await axios.get<ProductModel[]>(
       'https://6222994f666291106a29f999.mockapi.io/api/v1/products',
     );
     const values = response.data;
-    const sum = values.reduce(
-      (ac, item) =>
-        ac + (!item.is_redemption ? item.points : -Math.abs(item.points)),
-      0,
-    );
     dispatch({
       type: 'addProducts',
-      payload: {products: values, points: sum},
+      payload: values,
     });
+    return values;
   };
 
-  const toggleDisplay = (selected: 'all' | 'saved' | 'redeemed') => {
+  const toggleDisplay = (selected: null | boolean) => {
     toggleLoading();
-    const array: ProductModel[] = productState.products;
-    switch (selected) {
-      case 'saved':
-        dispatch({
-          type: 'toggleRedemption',
-          payload: {
-            products: [...array].filter(x => !x.is_redemption),
-            redemption: selected,
-          },
-        });
-        break;
-      case 'redeemed':
-        dispatch({
-          type: 'toggleRedemption',
-          payload: {
-            products: [...array].filter(x => x.is_redemption),
-            redemption: selected,
-          },
-        });
-        break;
-      default:
-        dispatch({
-          type: 'toggleRedemption',
-          payload: {
-            products: [...productState.products],
-            redemption: selected,
-          },
-        });
-    }
+    dispatch({
+      type: 'toggleRedemption',
+      payload: selected,
+    });
   };
 
   const toggleLoading = () => {

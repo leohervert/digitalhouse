@@ -11,14 +11,14 @@ type ProductState = {
   products: ProductModel[];
   displayed: ProductModel[];
   points: number;
-  isRedemption: 'all' | 'saved' | 'redeemed';
+  isRedemption: null | boolean;
   loading: boolean;
 };
 
 type ProductContextProps = {
   productState: ProductState;
   getProducts: () => void;
-  toggleDisplay: (selected: 'all' | 'saved' | 'redeemed') => void;
+  toggleDisplay: (selected: null | boolean) => void;
   toggleLoading: () => void;
 };
 

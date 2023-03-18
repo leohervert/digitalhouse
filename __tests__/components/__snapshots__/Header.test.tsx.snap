@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+<View>
+  <Text
+    style={
+      {
+        "color": "#020202",
+        "fontFamily": "sans-serif",
+        "fontSize": 20,
+        "fontStyle": "normal",
+        "fontWeight": "800",
+        "lineHeight": 27.32,
+        "paddingTop": 20,
+      }
+    }
+    testID="HeaderTitle"
+  >
+    Bienvenido de vuelta!
+  </Text>
+  <Text
+    style={
+      {
+        "color": "#020202",
+        "fontFamily": "sans-serif",
+        "fontSize": 16,
+        "fontStyle": "normal",
+        "fontWeight": "400",
+        "lineHeight": 21.86,
+      }
+    }
+    testID="UserTitle"
+  >
+    Ruben Rodriguez
+  </Text>
+</View>
+`;

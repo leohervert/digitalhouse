@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, useColorScheme} from 'react-native';
-
+import {NavigationContainer} from '@react-navigation/native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {ProductProvider} from './src/context/ProductContext';
 import {Router} from './src/Router';
@@ -15,11 +15,13 @@ function App(): JSX.Element {
   };
 
   return (
-    <ProductProvider>
-      <SafeAreaView style={[backgroundStyle, AppStyles.mainContainer]}>
-        <Router />
-      </SafeAreaView>
-    </ProductProvider>
+    <SafeAreaView style={[backgroundStyle, AppStyles.mainContainer]}>
+      <ProductProvider>
+        <NavigationContainer>
+          <Router />
+        </NavigationContainer>
+      </ProductProvider>
+    </SafeAreaView>
   );
 }
 

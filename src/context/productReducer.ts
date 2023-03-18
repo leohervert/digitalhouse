@@ -1,14 +1,12 @@
 type ProductAction =
-  | {type: 'addProducts'; payload: {products: ProductModel[]; points: number}}
+  | {type: 'addProducts'; payload: ProductModel[]}
   | {
       type: 'toggleRedemption';
-      payload: {
-        products: ProductModel[];
-        redemption: 'all' | 'redeemed' | 'saved';
-      };
+      payload: null | boolean;
     }
   | {type: 'countPoints'; payload: number}
-  | {type: 'toggleLoading'; payload: boolean};
+  | {type: 'toggleLoading'; payload: boolean}
+  | {type: ''};
 
 export const productReducer = (
   state: ProductState,
@@ -18,9 +16,8 @@ export const productReducer = (
     case 'addProducts':
       return {
         ...state,
-        products: [...action.payload.products],
-        displayed: [...action.payload.products],
-        points: action.payload.points,
+        products: [...action.payload],
+        displayed: [...action.payload],
         loading: false,
       };
     case 'countPoints':
@@ -28,8 +25,7 @@ export const productReducer = (
     case 'toggleRedemption':
       return {
         ...state,
-        displayed: [...action.payload.products],
-        isRedemption: action.payload.redemption,
+        isRedemption: action.payload,
         loading: false,
       };
     case 'toggleLoading':

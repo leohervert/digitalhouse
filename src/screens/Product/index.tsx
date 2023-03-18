@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import {ImageProduct} from '../../components/ImageProduct';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {styles} from './styles';
@@ -18,11 +18,8 @@ export const Product = ({route, navigation}: Props): JSX.Element => {
       <ImageProduct image={product.image} />
       <DetailProduct {...product} />
       <View>
-        <Button
-          onPress={() => handleOnPress()}
-          textStyles={styles.textButton}
-          style={styles.mainButton}>
-          Aceptar
+        <Button onPress={() => handleOnPress()} style={styles.mainButton}>
+          <Text style={styles.textButton}>Aceptar</Text>
         </Button>
       </View>
     </View>

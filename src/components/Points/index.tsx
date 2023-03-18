@@ -5,9 +5,8 @@ import AppStyles from '../../styles/AppStyles';
 import {styles} from './styles';
 
 export const Points = () => {
-  const {productState} = useContext(ProductContext);
+  const {productState} = useContext<ProductContextProps>(ProductContext);
   const {points} = productState;
-
   return (
     <View style={styles.container}>
       <View style={styles.pointsContainer}>
